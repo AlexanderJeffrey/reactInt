@@ -1,0 +1,43 @@
+// import fungsi useState
+import React, {useState} from "react";
+import "./styles.css";
+
+export default function App() {
+  // membuat const sebagai variable dengan array untuk menampung getter di kiri dan setter di kanan
+  // useState disini saya gunakan sebagai data sementara yang dimana masih kosong
+  const [inputValue, setInputValue] = useState("");
+  const [result, setResult] = useState("");
+
+  // Fungsi membalikkan angka menggunakan parseInt agar menjadi bilangan bulat
+  // menggunakan arrow function dengan parameter number
+  const reverseNumber = (number) => {
+    return parseInt(number.toString().split('').reverse().join(''), 10);
+
+    //number.toString(): Mengubah angka menjadi string.
+    //split(''): Memisahkan setiap karakter string menjadi sebuah array.
+    //reverse(): Membalikkan urutan elemen dalam array.
+    //join(''): Menggabungkan kembali elemen-elemen array menjadi sebuah string.
+  };
+
+  const handleInput = (e) => {
+    // Hanya menerima input angka dan mengabaikan karakter lain
+    const value = e.target.value.replace(/[^0-9]/g, '');
+    setInputValue(value);
+  };
+
+  const handleSubmit = () => {
+    // Memanggil fungsi reverseNumber untuk membalikkan angka
+    const reversed = reverseNumber(inputValue);
+    setResult(reversed);
+  };
+
+  return (
+    <div className="App">
+      <div>
+        Number: <input type="text" value={inputValue} onChange={handleInput} />
+        <button onClick={handleSubmit}>Submit</button>
+      </div>
+      <div>Result: {result}</div>
+    </div>
+  );
+}
